@@ -1,0 +1,260 @@
+{% extends 'meaning/basic.html' %}
+
+{% block title %} MyEasyExam.com {% endblock %}
+{% block css %}
+
+<style>
+  img {
+    height: 150px;
+    margin: 20px;
+    padding-left: 50px;
+  }
+
+  .img2 {
+    padding-left: 155px;
+  }
+  .card{
+    background-color:rgb(192, 235, 220);
+  }
+
+
+
+  
+  
+</style>
+
+{% endblock %}
+{% block body %}
+
+
+<main role="main" class="bdy">
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3" style="font-family: cursive;">Welcome To MyEasyExam.com</h1>
+      <p><b>What is Translation?</b><br>
+        Translation is the communication of meaning from one language (the source) to another language (the target).
+        Translation refers to written information, whereas interpretation refers to spoken information. <br>
+
+        The purpose of translation is to convey the original tone and intent of a message, taking into account cultural
+        and regional differences between source and target languages.</p>
+      <p><a class="btn btn-warning btn-lg" href="/meaning/about" role="button">Learn more &raquo;</a></p>
+    </div>
+  </div>
+
+
+
+
+
+
+  <div class="container bdy">
+    <!-- for trans -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card" style="width: 28rem;height: 20rem;">
+          <div class="card-body">
+            <h5 class="card-title"><b> Know Meaning's</b></h5>
+            <form action="/meaning/trans/" method="POST">{% csrf_token %}
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">Enter Sentence Or words here</label>
+                <textarea style="resize: none;" class="form-control" name="text" id="exampleFormControlTextarea1"
+                  rows="3"></textarea>
+                <label for="cars">Choose a Language</label>
+                <select id="cars" name="lang">
+                  <option value="hi">Hindi</option>
+                  <option value="mr">Marathi</option>
+                  <option value="en">English</option>
+                  <option value="ar">Arabic</option>
+                  <option value="fr">French</option>
+                  <option value="de">German</option>
+                  <option value="el">Greek</option>
+                  <option value="it">Italian</option>
+                  <option value="ja">Japanese</option>
+                  <option value="ko">Korean</option>
+                  <option value="ru">Russian</option>
+                  <option value="sv">Swedish</option>
+                  <option value="la">Latin</option>
+                </select>
+                <button class="btn btn-success mx-3 my-2" type="submit">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card" style="width: 28rem;height: 20rem;">
+          <div class="card-body">
+            <h5 class="card-title"><b>Translation in different Languages</b> </h5>
+            {% if final %}
+            {% for key, value in final.items %}
+
+            <div style="overflow-y: scroll;width: auto;height: 185px;" target="#"  data-offset="0" class="scrollspy-example">
+              <p style="font-size: 20px;" >{{value}}</p>
+            </div>
+            <form action="/meaning/pro/" method="POST">{% csrf_token %}
+              <div class="row">
+                <input type="hidden" name="text5" value="{{value}}">
+                <input type="hidden" name="text6" value="{{key}}">
+              </div>
+              <button class="btn btn-success mx-3 my-2" type="submit">Pronaunce</button>
+            </form>
+              
+           
+  
+          
+            {% endfor %}
+            {% else %}
+            Enter Something
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <!-- Example row of columns -->
+    <div class="row">
+      <div class="col-md-4 center">
+        <h1 class="my-3">Enter DOCX File </h1>
+        <img
+          src="data:image/png;base64,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"
+          alt="">
+        <p> <b>This Web-app helps you emerging students to to help you to Study properly</b> </p>
+        <p><b>This will help to fild the meaning off all the big words in your PDF</b></p>
+        <form action="/meaning/result/" method="POST">{% csrf_token %}
+          <input type="file" id="file" name="file1" multiple><br><br>
+          <hr>
+          <div class="row">
+            <button class="btn btn-danger mx-3 my-3" type="submit">English</button>
+
+          </div>
+        </form>
+
+      </div>
+      <div class="col-md-4 center">
+        <h1 class="my-3">Enter PDF File </h1>
+        <img
+          src="data:image/jpeg;base64,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"
+          alt="">
+        <p> <b>This Web-app helps you emerging students to to help you to Study properly</b> </p>
+        <p><b>This will help to fild the meaning off all the big words in your .ppt</b></p>
+        <form action="/meaning/result/" method="POST">{% csrf_token %}
+          <input type="file" id="file" name="file2" multiple><br><br>
+          <hr>
+          <div class="row center">
+            <button class="btn btn-danger mx-3 my-3" type="submit">English</button>
+
+          </div>
+        </form>
+
+      </div>
+      <div class="col-md-4 center">
+        <h1 class="my-3">Enter PPT File </h1>
+        <img
+          src="data:image/png;base64,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"
+          alt="">
+        <p> <b>This Web-app helps you emerging students to to help you to Study properly</b> </p>
+        <p><b>This will help to fild the meaning off all the big words in your .docx</b></p>
+        <form action="/meaning/result/" method="POST">{% csrf_token %}
+          <input type="file" id="file" name="file3" multiple><br><br>
+          <hr>
+          <div class="row">
+            <button class="btn btn-danger mx-3 my-3" type="submit">English</button>
+
+          </div>
+        </form>
+
+      </div>
+    </div>
+    <hr>
+
+
+
+
+    <div class="row">
+      <div class="col-md-6 center">
+        <h1 class="my-3">Enter Any File For Hindi Meanings </h1>
+        <img class="img2"
+          src="https://is2-ssl.mzstatic.com/image/thumb/Purple124/v4/99/68/3b/99683b30-6bf9-4379-44a3-1215704b8246/source/256x256bb.jpg"
+          alt="">
+        <p> <b>This Web-app helps you emerging students to to help you to Study properly</b> </p>
+        <p><b>This will help to fild the meaning off all the big words in your PDF</b></p>
+        <form action="/meaning/result/" method="POST">{% csrf_token %}
+          <input type="file" id="file" name="file4" multiple><br><br>
+          <hr>
+          <div class="row">
+            <button class="btn btn-info mx-3 my-3" type="submit">Hindi</button>
+
+          </div>
+        </form>
+
+      </div>
+      <div class="col-md-6 center">
+        <h1 class="my-3">Enter Any File For Marathi Meanings</h1>
+        <img class="img2"
+          src="https://is2-ssl.mzstatic.com/image/thumb/Purple124/v4/99/68/3b/99683b30-6bf9-4379-44a3-1215704b8246/source/256x256bb.jpg"
+          alt="">
+        <p> <b>This Web-app helps you emerging students to to help you to Study properly</b> </p>
+        <p><b>This will help to fild the meaning off all the big words in your PDF</b></p>
+        <form action="/meaning/result/" method="POST">{% csrf_token %}
+          <input type="file" id="file" name="file5" multiple><br><br>
+          <hr>
+          <div class="row">
+            <button class="btn btn-info mx-3 my-3" type="submit">Marathi</button>
+
+          </div>
+        </form>
+
+      </div>
+    </div>
+    <hr>
+
+
+
+
+    <div class="row">
+      <div class="col-md-6 center">
+        <h1 class="my-3">For Complet translation of Your file TO hindi </h1>
+        <img class="img2"
+          src="https://image.winudf.com/v2/image/Y29tLmFjLmVuZ2xpc2h0b2hpbmRpdHJhbnNsYXRvcl9zY3JlZW5fMF9mMTIyc2tscA/screen-0.jpg?fakeurl=1&type=.jpg"
+          alt="">
+        <p> <b>This Web-app helps you emerging students to to help you to Study properly</b> </p>
+        <p><b>This will help to fild the meaning off all the big words in your PDF</b></p>
+        <form action="/meaning/result/" method="POST">{% csrf_token %}
+          <input type="file" id="file" name="file6" multiple><br><br>
+          <hr>
+          <div class="row">
+            <button class="btn btn-warning mx-3 my-3" type="submit">Hindi</button>
+
+          </div>
+        </form>
+
+      </div>
+      <div class="col-md-6 center">
+        <h1 class="my-3">For Complet translation of Your file TO marathi</h1>
+        <img class="img2"
+          src="https://static.connect2india.com/c2icd/company_resources/1997099/images/products/product-english-to-marathi-translation-services.jpg"
+          alt="">
+        <p> <b>This Web-app helps you emerging students to to help you to Study properly</b> </p>
+        <p><b>This will help to fild the meaning off all the big words in your PDF</b></p>
+        <form action="/meaning/result/" method="POST">{% csrf_token %}
+          <input type="file" id="file" name="file7" multiple><br><br>
+          <hr>
+          <div class="row">
+            <button class="btn btn-warning mx-3 my-3 center" type="submit">Marathi</button>
+
+          </div>
+        </form>
+
+      </div>
+    </div>
+    <hr>
+
+
+  </div> <!-- /container -->
+
+</main>
+
+
+
+{% endblock %}
